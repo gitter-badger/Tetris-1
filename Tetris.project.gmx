@@ -16,6 +16,15 @@
     <scripts name="Input">
       <script>scripts\get_the_input.gml</script>
     </scripts>
+    <scripts name="Block States">
+      <script>scripts\block_state_move.gml</script>
+      <script>scripts\block_state_hold.gml</script>
+    </scripts>
+    <scripts name="Manager States">
+      <script>scripts\manager_state_create.gml</script>
+      <script>scripts\manager_state_pause.gml</script>
+      <script>scripts\manager_state_place.gml</script>
+    </scripts>
   </scripts>
   <objects name="objects">
     <object>objects\obj_block</object>
