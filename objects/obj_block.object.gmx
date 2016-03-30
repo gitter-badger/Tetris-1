@@ -29,6 +29,8 @@
 alarm[0] = 30;
 
 IsHolded = false;
+
+get_the_input();
 </string>
           </argument>
         </arguments>
@@ -51,16 +53,43 @@ IsHolded = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// Move block automatic
+            <string>/// Move block automatic_i
 
-if (x == 0)
+if (x == 0 || place_meeting(x - sprite_get_width(0), y, obj_block))
 {
     IsHolded = true;
-}
-
-if (place_meeting(x - sprite_get_width(0), y, obj_block))
-{
-    IsHolded = true;
+    
+    global.line_block[x] += 1;
+    
+    if (global.line_block[x] == 15)
+    {
+        global.line_block[x] = 0;
+        
+        var i = 0;
+        var destroy_targets = 0;
+        for (i = 0; i &lt; instance_number(obj_block); i += 1)
+        {
+            var block = instance_find(obj_block, i);
+            if (block.x == x)
+            {
+                if (false == is_array(destroy_targets))
+                {
+                    destroy_targets[0] = block;
+                }
+                else
+                {
+                    destroy_targets[array_length_1d(destroy_targets)] = block;
+                }
+            }
+        }
+        for (i = 0; i &lt; array_length_1d(destroy_targets); i += 1)
+        {
+            with (destroy_targets[i])
+            {
+                instance_destroy();
+            }
+        }
+    }
 }
 
 if (false == IsHolded)
@@ -93,29 +122,23 @@ if (false == IsHolded)
             <kind>1</kind>
             <string>/// Move block By Keyboard
 
+get_the_input();
+
 if (false == IsHolded)
 {
-    var right = keyboard_check(vk_right);
-    var left = keyboard_check(vk_left);
-    var up = keyboard_check(vk_up);
-    var down = keyboard_check(vk_down);
     
     var new_x = x;
     var new_y = y;
     
-    if (false)//right)
-    {
-        new_x += sprite_get_width(0);
-    }
-    if (left)
+    if (left_pressed)
     {
         new_x -= sprite_get_width(0);
     }
-    if (up)
+    if (up_pressed)
     {
         new_y -= sprite_get_height(0);
     }
-    if (down)
+    if (down_pressed)
     {
         new_y += sprite_get_height(0);
     }

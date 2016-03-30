@@ -12,7 +12,11 @@
     <background>background\bg_tile</background>
   </backgrounds>
   <paths name="paths"/>
-  <scripts name="scripts"/>
+  <scripts name="scripts">
+    <scripts name="Input">
+      <script>scripts\get_the_input.gml</script>
+    </scripts>
+  </scripts>
   <objects name="objects">
     <object>objects\obj_block</object>
     <object>objects\obj_block_manager</object>
